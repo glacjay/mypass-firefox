@@ -1,0 +1,16 @@
+{
+  "title": "MyPass for Firefox",
+  "name": "mypass-firefox",
+  "version": "0.0.1",
+  "description": "a simple password generator",
+  "main": "index.js",
+  "author": "GlacJAY <glacjay@gmail.com>",
+  "engines": {
+    "firefox": ">=40.0",
+    "fennec": ">=40.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}
