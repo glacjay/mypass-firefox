@@ -50,6 +50,7 @@ function panel_onShow() {
 }
 
 function panel_onHide() {
+    panel.port.emit("clear-passphrase", null);
     button.state("window", { state: false });
 }
 
