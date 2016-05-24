@@ -12,5 +12,11 @@
   "license": "MIT",
   "keywords": [
     "jetpack"
-  ]
+  ],
+  "preferences": [{
+    "name": "settings",
+    "title": "settings",
+    "type": "string",
+    "hidden": true
+  }]
 }
