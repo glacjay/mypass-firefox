@@ -23,6 +23,7 @@ self.port.on("init", function(data) {
 
 self.port.on("clear-passphrase", function () {
     $("#passphrase").val("");
+    $("#passwd").val("");
 });
 
 $("#settings").on("click", function () {
