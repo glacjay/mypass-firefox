@@ -23,6 +23,9 @@
         *padding-left: 20px;
         margin-left: 90px;
     }
+    button.pull-left {
+        float: left;
+    }
     button.pull-right {
         float: right;
     }
@@ -36,6 +39,12 @@
         cursor: default;
         background-color: #eeeeee;
     }
+    #settings {
+        margin-left: 10px;
+    }
+    #save {
+        margin-left: 5px;
+    }
     </style>
 </head>
 
@@ -45,29 +54,21 @@
             <div class="control-group">
                 <label class="control-label" for="salt">Salt</label>
                 <div class="controls">
-                    <input type="text" class="span2" id="salt" placeholder="Anything you like" readonly>
-                    <button type="button" class="btn pull-right" id="settings">Settings</button>
+                    <input type="text" class="input-block-level" id="salt" placeholder="open settings page to set this value" readonly>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="passphrase">Passphrase</label>
                 <div class="controls">
-                    <input type="password" class="input-block-level" id="passphrase" placeholder="Press ENTER to toggle plain text">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="site">Site</label>
-                <div class="controls">
-                    <input type="text" class="input-block-level" id="site" placeholder="Press ENTER to generate">
+                    <input type="password" class="input-block-level" id="passphrase">
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="passwd">Password</label>
                 <div class="controls controls-row">
-                    <input type="text" class="span2" id="passwd" placeholder="Press TAB to select" readonly>
+                    <input type="text" class="span2" id="passwd" readonly>
                     <button type="button" class="btn pull-right" id="generate">Generate</button>
                 </div>
             </div>
@@ -75,9 +76,16 @@
             <hr />
 
             <div class="control-group">
+                <label class="control-label" for="site">Site</label>
+                <div class="controls">
+                    <input type="text" class="input-block-level" id="site">
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="username">User name</label>
                 <div class="controls">
-                    <input type="text" class="input-block-level" id="username" placeholder="Optional to save user name">
+                    <input type="text" class="input-block-level" id="username" placeholder="optional to save user name">
                 </div>
             </div>
 
@@ -97,34 +105,6 @@
                 <label class="control-label" for="length">Length</label>
                 <div class="controls">
                     <select class="input-block-level" id="length">
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        <option>13</option>
-                        <option>14</option>
-                        <option>15</option>
-                        <option>16</option>
-                        <option>17</option>
-                        <option>18</option>
-                        <option>19</option>
-                        <option>20</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="generation">Generation</label>
-                <div class="controls">
-                    <select class="input-block-level" id="generation">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
                         <option>8</option>
                         <option>9</option>
                         <option>10</option>
@@ -166,8 +146,17 @@
                 </div>
             </div>
 
+            <div class="control-group">
+                <label class="control-label" for="generation">Generation</label>
+                <div class="controls">
+                    <input type="number" min="1" step="1" class="input-block-level form-control bfh-number" id="generation">
+                </div>
+            </div>
+
             <div class="control-group pull-right">
-                <button type="button" class="btn pull-right" id="save">Save Site Settings</button>
+                <button type="button" class="btn pull-left" id="settings">Settings</button>
+                <button type="button" class="btn pull-right" id="save">Save</button>
+                <button type="button" class="btn pull-right" id="load">Load</button>
             </div>
         </form>
     </div>

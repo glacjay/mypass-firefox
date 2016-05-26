@@ -1,24 +1,13 @@
 var pwdgen = PasswordGenerator.create();
 var settings = {};
+var curSite = null;
 
 self.port.on("init", function(data) {
     settings = data.settings;
+    curSite = data.site;
     $("#salt").val(settings.salt);
-    $("#site").val(data.site);
-    if ("sites" in settings && data.site in settings.sites) {
-        var siteSetting = settings.sites[data.site];
-        $("#username").val(siteSetting.username);
-        $("#num_symbol").val(siteSetting.numSymbol);
-        $("#length").val(siteSetting.length);
-        $("#generation").val(siteSetting.generation);
-        $("#hashes").val(siteSetting.hashes);
-    } else {
-        $("#username").val("");
-        $("#num_symbol").val(settings.defaultNumSymbol);
-        $("#length").val(settings.defaultLength);
-        $("#generation").val(1);
-        $("#hashes").val(settings.defaultHashes);
-    }
+    $("#site").val(curSite);
+    loadSiteSettings(curSite);
 });
 
 self.port.on("clear-passphrase", function () {
@@ -41,8 +30,8 @@ $("#generate").on("click", function() {
         passphrase: $('#passphrase').val(),
         num_symbol: Number($('#num_symbol').val()),
         length: Number($('#length').val()),
-        generation: Number($('#generation').val()),
         itercnt: 1 << Number($('#hashes').val()),
+        generation: Number($('#generation').val()),
     });
     $("#passwd").val(pwd);
 });
@@ -62,7 +51,92 @@ $("#save").on("click", function () {
     setting.username = $("#username").val();
     setting.numSymbol = $("#num_symbol").val();
     setting.length = $("#length").val();
-    setting.generation = $("#generation").val();
     setting.hashes = $("#hashes").val();
-    self.port.emit("save-settings", settings).val();
+    setting.generation = $("#generation").val();
+    self.port.emit("save-settings", settings);
+    markAllAsSaved(true);
 });
+
+$("#load").on("click", function () {
+    loadSiteSettings($("#site").val());
+});
+
+$("#site").on("input", function () {
+    var site = $("#site").val();
+    markAsSaved($(this), site === curSite);
+});
+
+$("#site").on("keypress", function (key) {
+    if (key.which === 13) {
+        loadSiteSettings($(this).val());
+    }
+});
+
+$("#username").on("input", function () {
+    var site = $("#site").val();
+    markAsSaved($(this), isSiteInSettings(site) && settings.sites[site].username === $(this).val());
+});
+
+$("#num_symbol").on("change", function () {
+    var site = $("#site").val();
+    markAsSaved($(this), isSiteInSettings(site) && settings.sites[site].numSymbol === $(this).val());
+});
+
+$("#length").on("change", function () {
+    var site = $("#site").val();
+    markAsSaved($(this), isSiteInSettings(site) && settings.sites[site].length === $(this).val());
+});
+
+$("#hashes").on("change", function () {
+    var site = $("#site").val();
+    markAsSaved($(this), isSiteInSettings(site) && settings.sites[site].hashes === $(this).val());
+});
+
+$("#generation").on("change", function () {
+    var site = $("#site").val();
+    markAsSaved($(this), isSiteInSettings(site) && settings.sites[site].generation === $(this).val());
+});
+
+function loadSiteSettings(site) {
+    if (isSiteInSettings(site)) {
+        var setting = settings.sites[site];
+        $("#username").val(setting.username);
+        $("#num_symbol").val(setting.numSymbol);
+        $("#length").val(setting.length);
+        $("#hashes").val(setting.hashes);
+        $("#generation").val(setting.generation);
+        markAllAsSaved(true);
+    } else {
+        $("#username").val("");
+        $("#num_symbol").val(settings.defaultNumSymbol);
+        $("#length").val(settings.defaultLength);
+        $("#hashes").val(settings.defaultHashes);
+        $("#generation").val(1);
+        if (site !== "") {
+            markAllAsSaved(false);
+        }
+    }
+
+    markAsSaved($("#site"), true);
+    curSite = site;
+}
+
+function markAllAsSaved(saved) {
+    markAsSaved($("#username"), saved);
+    markAsSaved($("#num_symbol"), saved);
+    markAsSaved($("#length"), saved);
+    markAsSaved($("#hashes"), saved);
+    markAsSaved($("#generation"), saved);
+}
+
+function markAsSaved(elem, saved) {
+    if (!saved) {
+        elem.css("border", "2px solid lightsalmon");
+    } else {
+        elem.css("border", "1px solid #CCCCCC");
+    }
+}
+
+function isSiteInSettings(site) {
+    return "sites" in settings && site in settings.sites;
+}
