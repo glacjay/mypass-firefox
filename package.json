@@ -1,6 +1,6 @@
 {
-  "title": "MyPass for Firefox",
-  "name": "mypass-firefox",
+  "title": "MyPass",
+  "name": "mypass",
   "version": "0.0.1",
   "description": "a simple password generator",
   "main": "index.js",
