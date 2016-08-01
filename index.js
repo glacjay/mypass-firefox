@@ -75,6 +75,7 @@ panel.port.on("open-settings", function() {
 panel.port.on("save-settings", saveSettings);
 
 prefs.set("services.sync.prefs.sync.extensions." + self.id + ".settings", true);
+ss.storage = JSON.parse(sp.prefs["settings"]);
 sp.on("settings", function (prefname) {
     ss.storage = JSON.parse(sp.prefs["settings"]);
 });
