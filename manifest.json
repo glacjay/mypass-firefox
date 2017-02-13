@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "mypass",
+    "version": "0.0.2",
+
+    "description": "a simple password generator",
+    "homepage_url": "https://github.com/glacjay/mypass-firefox",
+    "icons": {
+        "64": "data/img/logo-64.png"
+    },
+
+    "applications": {
+        "gecko": {
+            "id": "mypass@glacjay.info"
+        }
+    },
+
+    "permissions": [
+        "activeTab"
+    ],
+
+    "browser_action": {
+        "default_icon": "data/img/logo-32.png",
+        "default_title": "MyPass",
+        "default_popup": "data/panel.html"
+    }
+}
